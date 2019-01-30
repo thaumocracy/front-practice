@@ -1,0 +1,31 @@
+body {
+    display:flex;
+}
+main {
+    width:90%;
+}
+nav {
+    width:10%;
+    border-right:1px solid black;
+}
+
+.nav__list {
+    padding:0px;
+    list-style-type: none;
+}
+.nav__item{
+    display: block;
+}
+.nav-link {
+    text-decoration: none;
+    color:rgb(63, 63, 63);
+    display: block;
+    padding:5px 10px;
+    background-color:lightblue;
+}
+
+@media (min-width:1200px){
+    body{
+        background-color:lightgray;
+    }
+}

@@ -1,0 +1,15 @@
+#navbar {
+    position:fixed;
+    top:10px;
+}
+
+#welcome-section {
+    height:100vh;
+}
+
+
+@media (min-width:1000px){
+    body {
+        background-color:lightblue;
+    }
+}
