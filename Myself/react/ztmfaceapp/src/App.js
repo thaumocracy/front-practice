@@ -27,12 +27,20 @@ class App extends Component {
       isSignedIn:false
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3000')
+    .then(response => response.json())
+    .then( data => console.table(data))
+  }
+
   onRouteChange = (route) => {
     if(route === 'signout'){
       this.setState({isSignedIn:false})
     } else if(route === 'home'){
       this.setState({isSignedIn:true})
     }
+    console.log(this.state.route)
+    console.log(this.state.isSignedIn)
     this.setState({route:route})
   }
 
@@ -62,9 +70,7 @@ class App extends Component {
   } 
 
   onSubmit = (event) => {
-
     this.setState({imageUrl:this.state.input})
-
     app.models
     .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
     .then(response =>  { 
