@@ -24,13 +24,31 @@ class App extends Component {
       imageUrl:'',
       box:{},
       route:'signin',
-      isSignedIn:false
+      isSignedIn:false,
+      user:{
+          id:"",
+          name:"",
+          email:"",
+          password:"",
+          entries:0,
+          joined:''
+      }
   }
 
   componentDidMount() {
     fetch('http://localhost:3000')
     .then(response => response.json())
     .then( data => console.table(data))
+  }
+
+  loadUser = (data) => {
+    this.setState({user : {
+      id:data.id,
+      name:data.name,
+      email:data.email,
+      entries:data.entries,
+      joined:data.joined
+    }})
   }
 
   onRouteChange = (route) => {
@@ -82,10 +100,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Particles 
-          className="particles"
-          params={particlesOptions} 
-        />
 
         <Navigation 
           isSignedIn={this.state.isSignedIn}
@@ -94,7 +108,7 @@ class App extends Component {
         { this.state.route === "home" 
           ? <div>
               <Logo />
-              <Rank />
+              <Rank name={this.state.user.name} entries={this.state.user.entries}/>
               <ImageLinkForm 
                 onSubmit={this.onSubmit}
                 onInputChange={this.onInputChange}
@@ -106,8 +120,8 @@ class App extends Component {
             </div>
           : (
             this.state.route === 'signin'
-            ? <Signin onRouteChange={this.onRouteChange}/>
-            : <Register onRouteChange={this.onRouteChange}/>
+            ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+            : <Register loadUser = {this.loadUser} onRouteChange={this.onRouteChange}/>
           )
         }
 

@@ -1,4 +1,4 @@
-import React , { Component }from 'react'
+import React , { Component } from 'react'
 import './Signin.css'
 
 class Signin extends Component {
@@ -32,10 +32,11 @@ class Signin extends Component {
             })
         })
         .then(response => response.json())
-        .then(data => {
-            if(data === 'Success'){
-               this.props.onRouteChange('home')
-            }
+        .then(user => {
+          if(user.id){
+            this.props.loadUser(user);
+            this.props.onRouteChange('home');
+          }
         })
     }
     
