@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Particles from 'react-particles-js'
 import Clarifai from 'clarifai'
 import 'tachyons'
 
@@ -11,29 +10,28 @@ import Register from './components/Register/Register'
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
 import FaceRecognition from './components/FaceRecognition/FaceRecognition'
 import Signin from './components/Signin/Signin'
-import particlesOptions from './particlesOptions';
 import keys from './keys.js'
 
-const app = new Clarifai.App({
-  apiKey:keys.clarifai  
-})
+
+
+const initialState = {
+  input:'',
+  imageUrl:'',
+  box:{},
+  route:'signin',
+  isSignedIn:false,
+  user:{
+      id:"",
+      name:"",
+      email:"",
+      password:"",
+      entries:0,
+      joined:''
+  }
+}
 
 class App extends Component {
-  state = {
-      input:'',
-      imageUrl:'',
-      box:{},
-      route:'signin',
-      isSignedIn:false,
-      user:{
-          id:"",
-          name:"",
-          email:"",
-          password:"",
-          entries:0,
-          joined:''
-      }
-  }
+  state = initialState
 
   // componentDidMount() {
   //   fetch('http://localhost:3000')
@@ -53,7 +51,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if(route === 'signout'){
-      this.setState({isSignedIn:false})
+      this.setState(initialState)
     } else if(route === 'home'){
       this.setState({isSignedIn:true})
     }
@@ -89,8 +87,16 @@ class App extends Component {
 
   onSubmit = (event) => {
     this.setState({imageUrl:this.state.input})
-    app.models
-    .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    fetch('http://localhost:3000/imageurl',{
+      method:'post',
+      headers:{
+          'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+          input:this.state.input
+      })
+    })
+    .then(response => response.json())
     .then(response => {
       if(response){
         fetch('http://localhost:3000/image',{
@@ -106,6 +112,7 @@ class App extends Component {
         .then(count => {
           this.setState(Object.assign(this.state.user, {entries:count}))
         })
+        .catch(error => console.log(error))
       }
       this.displayFaceBox(this.calculateFaceLocation(response))
     })
