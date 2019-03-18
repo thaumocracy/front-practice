@@ -2,7 +2,7 @@
     <main class="content">
         <div class="quote-container">
             <h3 class="quote-first">There is first part</h3>
-            <img src="../assets/quote-faces/snow.png" alt="">
+            <img :src="false ? brezhnev : buzova" alt="Some Picture">
             <h3 class="quote-second">... and the second part</h3>
             <button class="destroy">KILL IT WITH FIRE</button>
         </div>
@@ -12,7 +12,13 @@
 
 <script>
 export default {
-    name:"Main"
+    name:"Main",
+    data(){
+        return {
+            buzova : require('@/assets/quote-faces/buzova.png'),
+            brezhnev:require('@/assets/quote-faces/brezhnev.png')
+        }
+    }
 }
 </script>
 
