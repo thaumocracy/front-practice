@@ -2,9 +2,9 @@
     <main class="content">
         <div class="quote-container">
             <h3 class="quote-first">There is first part</h3>
-            <img :src="false ? brezhnev : buzova" alt="Some Picture">
+            <img :src="picture" alt="Some Picture">
             <h3 class="quote-second">... and the second part</h3>
-            <button class="destroy">KILL IT WITH FIRE</button>
+            <button class="destroy" @click="broviToBred">KILL IT WITH FIRE</button>
         </div>
 
     </main>
@@ -15,8 +15,18 @@ export default {
     name:"Main",
     data(){
         return {
-            buzova : require('@/assets/quote-faces/buzova.png'),
-            brezhnev:require('@/assets/quote-faces/brezhnev.png')
+            check:true,
+            picture : ''
+        }
+    },
+    methods : {
+        broviToBred () {
+            if(this.check){
+                this.picture = require('@/assets/quote-faces/buzova.png')
+            } else {
+                this.picture = require('@/assets/quote-faces/brezhnev.png')
+            }
+            this.check = !this.check          
         }
     }
 }
