@@ -1,32 +1,36 @@
 <template>
     <main class="content">
         <div class="quote-container">
-            <h3 class="quote-first">There is first part</h3>
+            <h3 class="quote-first">{{first}}</h3>
             <img :src="picture" alt="Some Picture">
-            <h3 class="quote-second">... and the second part</h3>
-            <button class="destroy" @click="broviToBred">KILL IT WITH FIRE</button>
+            <h3 class="quote-second">{{second}}</h3>
+            <button class="destroy" @click="findPicture">KILL IT WITH FIRE</button>
         </div>
 
     </main>
 </template>
 
 <script>
+const  picArray = ['brezhnev','brezhnev2','buzova','buzova2','einstein4','einstein5','lenin','lenin2','show','snow2','statham']
+import quoteArray from '../assets/quotes.json'
+
+
 export default {
     name:"Main",
     data(){
         return {
-            check:true,
-            picture : ''
+            picture : '',
+            first:'',
+            second:''
         }
     },
     methods : {
-        broviToBred () {
-            if(this.check){
-                this.picture = require('@/assets/quote-faces/buzova.png')
-            } else {
-                this.picture = require('@/assets/quote-faces/brezhnev.png')
-            }
-            this.check = !this.check          
+        findPicture () {
+            const random = Math.floor(Math.random() * picArray.length)
+            const randomQuote = Math.floor(Math.random() * quoteArray.length)
+            this.first = quoteArray[randomQuote].first
+            this.second = quoteArray[randomQuote].second
+            this.picture = require(`@/assets/quote-faces/${picArray[random]}.png`)        
         }
     }
 }
