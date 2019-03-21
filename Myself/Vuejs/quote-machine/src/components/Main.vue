@@ -71,6 +71,7 @@ img {
     padding:20px;
     text-shadow: 2px 2px  #000;
 }
+
 .destroy {
     margin-top:20px;
     display: block;
