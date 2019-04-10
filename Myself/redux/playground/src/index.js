@@ -4,17 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore } from 'redux'
+// import { createStore } from 'redux'
 // import { Provider } from 'react-redux'
-let album = {
-  title: 'Kind of Blue',
-  artist: 'Miles Davis',
-  year: 1959
-}
-const reducer = {}
-const store = createStore(reducer,album)
-let state = store.getState()
-console.log(store.title)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
