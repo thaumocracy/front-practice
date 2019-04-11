@@ -13,8 +13,7 @@ function burger(props){
   return (
     <div className={styles.Burger}>
       <BurgerIngredient type="bread-top" />
-      <BurgerIngredient type="cheese" />
-      <BurgerIngredient type="meat" />
+        {tranformedIngredients}
       <BurgerIngredient type="bread-bottom" />
     </div>
   )
