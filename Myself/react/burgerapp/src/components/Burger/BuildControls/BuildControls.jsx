@@ -21,6 +21,7 @@ function buildControls(props){
           disabled={props.disabled[item.type]}
         />
       })}
+      <button>Order Now</button>
     </div>
   )
 }
