@@ -1,4 +1,5 @@
 import React , { Fragment }from 'react'
+import Button from '../../UI/Button/Button';
 
 function orderSummary (props) {
   const ingredientSummary = Object.keys(props.ingredients).map(key => {
@@ -16,6 +17,8 @@ function orderSummary (props) {
       <ul>
         {ingredientSummary}
       </ul>
+      <Button></Button>
+      <Button></Button>
     </Fragment>
   )
 }
