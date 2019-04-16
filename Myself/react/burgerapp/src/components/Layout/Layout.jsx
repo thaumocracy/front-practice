@@ -1,11 +1,12 @@
 import React , { Fragment }from 'react'
 import styles from './Layout.module.css'
+import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 function Layout(props){
   return (
     <Fragment>
-      <div className={styles.Red}>Toolbar |  SideDrawer | Backdrop</div>
-      <main>
+      <Toolbar />
+      <main className={styles.Content}>
         {props.children}
       </main>
     </Fragment>
