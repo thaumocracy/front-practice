@@ -7,9 +7,13 @@ import './Blog.css';
 
 class Blog extends Component {
     state = {
-        posts:[]
+        posts:[],
+        selectedPostId:null
     }
 
+    postSelectedHandler = (id) => {
+        this.setState({selectedPostId:id})
+    }
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then(response => response.json())
@@ -26,14 +30,21 @@ class Blog extends Component {
     }
 
     render () {
-        const posts = this.state.posts.map(post => <Post key={post.id} title={post.title} author={post.author}/>)
+        const posts = this.state.posts.map(post => (
+            <Post 
+                key={post.id} 
+                title={post.title} 
+                author={post.author}
+                clicked={() => this.postSelectedHandler(post.id)}
+            />
+        ))
         return (
             <div>
                 <section className="Posts">
                     {posts}
                 </section>
                 <section>
-                    <FullPost />
+                    <FullPost id={this.state.selectedPostId}/>
                 </section>
                 <section>
                     <NewPost />
