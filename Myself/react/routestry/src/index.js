@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom'
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
@@ -27,5 +28,5 @@ axios.interceptors.response.use(response => {
     return Promise.reject(error);
 });
 
-ReactDOM.render( <App />, document.getElementById( 'root' ) );
+ReactDOM.render( <BrowserRouter><App /></BrowserRouter>, document.getElementById( 'root' ) );
 registerServiceWorker();
