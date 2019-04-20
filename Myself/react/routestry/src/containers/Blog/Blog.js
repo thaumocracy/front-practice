@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
 import axios from '../../axios';
+import { Route , Link } from 'react-router-dom'
 import Posts from '../Posts/Posts'
+import NewPost from './NewPost/NewPost'
 
 import './Blog.css';
 
@@ -12,12 +14,16 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><a href="/" target="_blank" rel="noopener noreferrer">Home</a></li>
-                            <li><a href="/new-post" target="_blank" rel="noopener noreferrer">New Post</a></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to={{
+                                pathname:'/new-post',
+                                hash:'#submit'
+                            }}>New Post</Link></li>
                         </ul>
                     </nav>
                 </header>
-                <Posts />
+                <Route path="/" exact component={Posts} />
+                <Route path="/new-post" exact component={NewPost} />
             </div>
         );
     }
