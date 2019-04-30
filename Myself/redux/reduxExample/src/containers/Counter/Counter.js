@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
+import * as actionTypes from '../../store/actions'
 
 class Counter extends Component {
     render () {
@@ -13,10 +14,10 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={ this.props.onAddFive}  />
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtractFive}  />
                 <hr/>
-                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <button onClick={() => this.props.onStoreResult(this.props.counter)}>Store Result</button>
                 <ul>
                     {this.props.storedResults.map(item => {
-                        return <li key={item.id} onClick={this.props.onDeleteResult}>{item.value}</li>
+                        return <li key={item.id} onClick={() => this.props.onDeleteResult(item.id)}>{item.value}</li>
                     })}                    
                 </ul>
             </div>
@@ -26,19 +27,19 @@ class Counter extends Component {
 
 const mapStateToProps = state => {
     return {
-        counter : state.counter,
-        storedResults : state.results
+        counter : state.ctr.counter,
+        storedResults : state.res.results
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter : () => dispatch({type:'INCREMENT'}),
-        onDecrementCounter : () => dispatch({type:'DECREMENT'}),
-        onAddFive : () => dispatch({type:"ADD_FIVE" ,value:10}),
-        onSubtractFive : () => dispatch({type:"REMOVE_FIVE",value:15}),
-        onStoreResult : () => dispatch({type:"STORE_RESULT"}),
-        onDeleteResult : () => dispatch({type:"DELETE_RESULT"})
+        onIncrementCounter : () => dispatch({type:actionTypes.INCREMENT}),
+        onDecrementCounter : () => dispatch({type:actionTypes.DECREMENT}),
+        onAddFive : () => dispatch({type:actionTypes.ADD_FIVE ,value:10}),
+        onSubtractFive : () => dispatch({type:actionTypes.REMOVE_FIVE,value:15}),
+        onStoreResult : (result) => dispatch({type:actionTypes.STORE_RESULT , payload:result}),
+        onDeleteResult : (id) => dispatch({type:actionTypes.DELETE_RESULT,payload: {id:id}})
     }
 }
 

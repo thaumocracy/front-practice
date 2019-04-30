@@ -1,41 +1,34 @@
+import * as actionTypes from '../actions'
+
 const initialState = {
   counter:0,
-  results : []
 }
 
-const reducer = (state=initialState,action) => {
+const counter = (state=initialState,action) => {
   switch(action.type){
-    case 'INCREMENT' : 
+    case actionTypes.INCREMENT : 
       return {
         ...state,
         counter:state.counter + 1
       }
-    case 'DECREMENT' : 
+    case actionTypes.DECREMENT : 
       return {
         ...state,
         counter:state.counter - 1
       }
-    case 'ADD_FIVE' : 
+    case actionTypes.ADD_FIVE :  
       return {
         ...state,
         counter:state.counter + action.value
       }
-    case 'REMOVE_FIVE' : 
+    case actionTypes.REMOVE_FIVE: 
       return {
         ...state,
         counter:state.counter - action.value
-      }
-    case 'STORE_RESULT' : 
-      return { 
-        ...state,
-        results : state.results.concat({
-          id: new Date(),
-          value:state.counter
-        })
       }
     default :
       return state
   }
 }
 
-export default reducer
+export default counter
