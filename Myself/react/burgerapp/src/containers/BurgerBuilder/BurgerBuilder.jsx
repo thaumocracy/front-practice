@@ -3,13 +3,13 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-
-import axios from '../../axios-orders'
 import Spinner from '../../components/UI/Spinner/Spinner';
 import {connect} from 'react-redux'
-import * as constants from '../../store/actions'
-class BurgerBuilder extends Component {
+import * as builderActions from '../../store/actions/index'
 
+// ------------ 
+
+class BurgerBuilder extends Component {
   state = {
     totalPrice : 4,
     purchasing:false,
@@ -17,7 +17,7 @@ class BurgerBuilder extends Component {
   }
   
   componentDidMount(){
-    // axios.get('/ingredients.json').then(response => this.setState({ingredients:response.data}) )
+    this.props.onInitIngredients()
   }
   purchaseHandler  = () =>  this.setState({purchasing:true})
 
@@ -84,25 +84,16 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ings:state.ingredients,
-    price:state.totalPrice
+    ings:state.burgerBuilder.ingredients,
+    price:state.burgerBuilder.totalPrice
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded : (ingName) => dispatch({ 
-      type:constants.ADD_INGREDIENT,
-      payload: {
-        ingredientName:ingName
-      }
-    }),
-    onIngredientRemoved : (ingName) => dispatch({
-      type:constants.REMOVE_INGREDIENT,
-      payload: {
-        ingredientName:ingName
-      }
-    })
+    onIngredientAdded : (ingName) => dispatch(builderActions.addIngredient(ingName)),
+    onIngredientRemoved : (ingName) => dispatch(builderActions.removeIngredient(ingName)),
+    onInitIngredients : () => dispatch(builderActions.initIngredients())
   }
 }
 
