@@ -42,7 +42,7 @@ export const auth = (email,password,isSignUp) => {
   return dispatch => {
     dispatch(authStart());
     const authData = {
-        email: email,
+        email: email, 
         password: password,
         returnSecureToken: true
     };
