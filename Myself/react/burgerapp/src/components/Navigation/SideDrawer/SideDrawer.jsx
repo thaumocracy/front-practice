@@ -18,7 +18,7 @@ function sideDrawer(props){
       <div className={attachedStyles.join(' ')}>
         <Logo height="11%"/>
         <nav>        
-          <NavigationItems />
+          <NavigationItems isAuthenticated={props.isAuth}/>
         </nav>
       </div>
     </Fragment>
