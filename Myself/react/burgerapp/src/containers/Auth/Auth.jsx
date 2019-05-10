@@ -4,7 +4,8 @@ import Button from '../../components/UI/Button/Button';
 import styles from './Auth.module.css'
 import Spinner from '../../components/UI/Spinner/Spinner'
 
-import {connect} from 'react-redux'
+import {connect } from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 import * as actions from '../../store/actions/index'
 
@@ -129,7 +130,8 @@ class Auth extends Component {
 const mapStateToProps = state => {
   return {
     loading:state.auth.loading,
-    error:state.auth.error
+    error:state.auth.error,
+    isAuthenticated:state.auth.token !== null
   }
 }
 
