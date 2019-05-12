@@ -43,6 +43,11 @@ class Auth extends Component {
     },
     isSignIn: true,
   }
+  componentDidMount() {
+    if(!this.props.buildingBurger && this.props.authRedirectPath !== '/'){
+      this.props.onSetAuthRedirectPath()
+    }
+  } 
 
   switchAuthModeHandler = () => {
     this.setState(prevState => {
@@ -106,20 +111,22 @@ class Auth extends Component {
         />
       )
     })
-
-    if(this.props.loading){
-      form = <Spinner />
-    }
     let errorMessage = null
-    if(this.props.error){
-      errorMessage = <p>{this.props.error.message}</p>
+    let authRedirect = null
+
+    if(this.props.loading){form = <Spinner />}
+    if(this.props.error){errorMessage = <p>{this.props.error.message}</p>}
+    if(this.props.isAuthenticated){
+      authRedirect = <Redirect to={this.props.authRedirectPath}/>
+      
     }
     return (
       <div className={styles.Auth}>
         <form action="" onSubmit={(event) => this.submitHandler(event)}>
-          {form}
+          {form}  
           <Button btnType="Success">Submit</Button>
         </form>
+        {authRedirect}
         {errorMessage}
         <Button clicked={this.switchAuthModeHandler} btnType="Danger">{this.state.isSignIn ? 'Войти' : 'Регистрация'}</Button>
       </div>
@@ -131,13 +138,16 @@ const mapStateToProps = state => {
   return {
     loading:state.auth.loading,
     error:state.auth.error,
-    isAuthenticated:state.auth.token !== null
+    isAuthenticated:state.auth.token !== null,
+    buildingBurger:state.burgerBuilder.building,
+    authRedirectPath:state.auth.authRedirectPath
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth:(email,password,isSignUp) => dispatch(actions.auth(email,password,isSignUp))
+    onAuth:(email,password,isSignUp) => dispatch(actions.auth(email,password,isSignUp)),
+    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath('/'))
   }
 }
 
