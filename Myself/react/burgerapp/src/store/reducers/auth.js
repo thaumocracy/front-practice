@@ -7,8 +7,6 @@ const initialState = {
   loading:false,
   authRedirectPath:'/',
 }
-
-
 const reducer = (state = initialState,action) => {
   switch(action.type){
     case actionTypes.SET_AUTH_REDIRECT_PATH : {

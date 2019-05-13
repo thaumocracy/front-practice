@@ -48,7 +48,6 @@ class Auth extends Component {
       this.props.onSetAuthRedirectPath()
     }
   } 
-
   switchAuthModeHandler = () => {
     this.setState(prevState => {
       return {isSignIn:!prevState.isSignIn}
@@ -116,10 +115,7 @@ class Auth extends Component {
 
     if(this.props.loading){form = <Spinner />}
     if(this.props.error){errorMessage = <p>{this.props.error.message}</p>}
-    if(this.props.isAuthenticated){
-      authRedirect = <Redirect to={this.props.authRedirectPath}/>
-      
-    }
+    if(this.props.isAuthenticated){authRedirect = <Redirect to={this.props.authRedirectPath}/>}
     return (
       <div className={styles.Auth}>
         <form action="" onSubmit={(event) => this.submitHandler(event)}>
@@ -147,7 +143,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuth:(email,password,isSignUp) => dispatch(actions.auth(email,password,isSignUp)),
-    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath('/'))
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
   }
 }
 
