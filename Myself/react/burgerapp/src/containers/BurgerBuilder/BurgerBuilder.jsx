@@ -7,15 +7,12 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import {connect} from 'react-redux'
 import * as actions from '../../store/actions/index'
 
-// ------------ 
-
 class BurgerBuilder extends Component {
   state = {
     totalPrice : 4,
     purchasing:false,
     loading:false
-  }
-  
+  }  
   componentDidMount(){
     this.props.onInitIngredients()
   }
@@ -26,7 +23,6 @@ class BurgerBuilder extends Component {
       this.props.onSetAuthRedirectPath('/checkout')
       this.props.history.push('/auth')
     }
-    
   }
 
   updatePurchaseState (ingredients) {
@@ -42,17 +38,12 @@ class BurgerBuilder extends Component {
   }
 
   render(){
-    const disabledInfo = {
-      ...this.props.ings
-    }
-
+    const disabledInfo = {...this.props.ings}
     for(let key in disabledInfo){
       disabledInfo[key] = disabledInfo[key] <= 0
     }
-
     let orderSummary = null
     let burger = <Spinner />
-
     if(this.props.ings){
       burger = (
         <Fragment>
@@ -70,19 +61,14 @@ class BurgerBuilder extends Component {
           />
        </Fragment>
       )
-
       orderSummary = <OrderSummary 
         ingredients={this.props.ings} 
         purchaseCancelled={this.purchaseCancelHandler}
         purchaseContinued={this.purchaseContinueHandler}
         price={this.props.price}
       />
-    }
-    
-    if(this.state.loading){
-      orderSummary = <Spinner/>
-    }
-
+    }    
+    if(this.state.loading){orderSummary = <Spinner/>}
     return (
       <Fragment>
         <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>

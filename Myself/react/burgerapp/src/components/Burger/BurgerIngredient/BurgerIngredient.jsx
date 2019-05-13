@@ -5,7 +5,6 @@ import styles from './BurgerIngredient.module.css'
 
 function burgerIngredient (props){
   let ingredient = null
-
   switch(props.type){
     case ('bread-bottom') :
       ingredient = <div className={styles.BreadBottom}> </div>
@@ -32,11 +31,9 @@ function burgerIngredient (props){
       break
     default : 
       ingredient = null
-    
   }
   return ingredient
 }
-
 burgerIngredient.propTypes = {
   type:propTypes.string.isRequired
 }

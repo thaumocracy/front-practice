@@ -2,7 +2,6 @@ import React, { Component , Fragment} from 'react';
 import {Route , Switch , Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import './App.css';
-
 import Layout from './containers/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
@@ -31,6 +30,7 @@ class App extends Component {
             <Route path="/checkout" component={Checkout} />
             <Route path="/orders" component={Orders} />
             <Route path="/logout" component={Logout} />
+            <Route path="/auth" component={Auth} />
             <Route path="/" component={BurgerBuilder} />
             <Redirect to="/" />
         </Switch>

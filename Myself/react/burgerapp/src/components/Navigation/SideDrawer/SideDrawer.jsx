@@ -6,20 +6,14 @@ import Backdrop from '../../UI/Backdrop/Backdrop';
 
 function sideDrawer(props){
   let attachedStyles = [styles.SideDrawer,styles.Closed]
-  if(props.open){
-    attachedStyles = [styles.SideDrawer,styles.Open]
-  } 
+  if(props.open){attachedStyles = [styles.SideDrawer,styles.Open]} 
+  
   return (
     <Fragment>
-      <Backdrop 
-        show={props.open}
-        clicked={props.closed} 
-      />
-      <div className={attachedStyles.join(' ')}>
+      <Backdrop show={props.open} clicked={props.closed}/>
+      <div className={attachedStyles.join(' ')} onClick={props.closed}>
         <Logo height="11%"/>
-        <nav>        
-          <NavigationItems isAuthenticated={props.isAuth}/>
-        </nav>
+        <nav><NavigationItems isAuthenticated={props.isAuth}/></nav>
       </div>
     </Fragment>
   )

@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes'
 import axios from '../../axios-orders'
 
 export const purchaseBurgerSuccess = (id,orderData) => {
-  console.log(orderData)
   return {
     type:actionTypes.PURCHASE_BURGER_SUCCESS,
     orderId:id,

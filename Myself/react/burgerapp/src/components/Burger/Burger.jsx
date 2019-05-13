@@ -10,12 +10,8 @@ function burger(props){
          return <BurgerIngredient key={igKey + i} type={igKey} />
       })
     })
-    .reduce((array,element) => {
-      return array.concat(element)
-    },[])
-  if(tranformedIngredients.length === 0){
-    tranformedIngredients = <p>Let's build some carbs!</p>
-  }
+    .reduce((array,element) => {return array.concat(element)},[])
+  if(tranformedIngredients.length === 0){tranformedIngredients = <p>Let's build some carbs!</p>}
   return (
     <div className={styles.Burger}>
       <BurgerIngredient type="bread-top" />

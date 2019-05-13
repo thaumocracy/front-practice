@@ -2,20 +2,14 @@ import React , { Fragment  , Component }from 'react'
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
-  componentWillUpdate(){
-    
-  }
-
   render(){
-
     const ingredientSummary = Object.keys(this.props.ingredients).map(key => {
       return (
         <li key={key}>
-          <span style={{textTransform:'capitalize'}}>{key}</span>: {this.props.ingredients[key]}
+          <span style={{textTransform:'capitalize'}}>{key}</span>:{this.props.ingredients[key]}
         </li>
       ) 
     })
-
     return (
       <Fragment> 
         <h3>Your order</h3>
@@ -35,8 +29,7 @@ class OrderSummary extends Component {
         >Continue</Button>
       </Fragment>
     )
-  }
-  
+  }  
 }
 
 export default OrderSummary

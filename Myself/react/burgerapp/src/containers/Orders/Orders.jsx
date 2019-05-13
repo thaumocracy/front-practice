@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Order from '../../components/Order/Order';
 import {connect} from 'react-redux'
-import axios from '../../axios-orders'
+// import axios from '../../axios-orders'
 import * as actions from '../../store/actions/index'
 import Spinner from '../../components/UI/Spinner/Spinner'
 
@@ -12,7 +12,6 @@ class Orders extends Component {
 
   render() {
     let orders = <Spinner />
-    console.log(this.props.orders)
     if(!this.props.loading){
       orders = (<div>
         {this.props.orders.map(order => {
