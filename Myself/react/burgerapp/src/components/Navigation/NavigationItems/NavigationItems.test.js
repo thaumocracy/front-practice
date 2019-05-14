@@ -10,6 +10,7 @@ configure({
 
 describe('Navigation Items >',() => {
   let wrapper
+
   beforeEach(() => {
     wrapper = shallow(<NavigationItems />)
   })
@@ -21,7 +22,7 @@ describe('Navigation Items >',() => {
     wrapper.setProps({isAuthenticated:true})
     expect(wrapper.find(NavigationItem)).toHaveLength(3)
   })
-  it('should render two items if authenticated',() => {
+  it('should have exact logout button',() => {
     wrapper.setProps({isAuthenticated:true})
     expect(wrapper.contains(<NavigationItem link="/logout">Log Out</NavigationItem>)).toEqual(true)
   })
