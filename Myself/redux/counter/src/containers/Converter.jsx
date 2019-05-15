@@ -3,23 +3,40 @@ import {connect} from 'react-redux'
 import Base from '../components/Base/Base';
 import Change from '../components/Change/Change';
 import keys from '../keys'
+import './Converter.css'
+import * as actions from '../store/actions'
 
 class Converter extends Component { 
-
-  fetchDataHandler = () => {
-    fetch(`http://data.fixer.io/api/latest?access_key=${keys.fixer}&symbols=ALL,BZD,EUR,GIP,JPY,SOS,MUR,SCR,RUB&format=1`)
-    .then(response => response.json())
-    .then(data => console.log(data))
-  }
-
+ componentDidMount() {
+   this.props.onAppStart()
+ }
+ 
   render(){
     return (
       <Fragment>
-        <Base />
-        <Change />
-        <button onClick={this.fetchDataHandler}>Fetch</button>
+        <div className="innerWrapper">
+          <Base />
+          <Change />
+        </div>
+        <div className="innerWrapper">
+          <p>#DOLLA</p>
+          <button onClick={this.fetchDataHandler}>Fetch</button>
+        </div>
       </Fragment>
     )
   }
 }
-export default (Converter);
+
+const mapStateToProps = state => {
+  return {
+    data:state.data
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAppStart: () => dispatch(actions.init())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Converter);

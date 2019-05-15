@@ -1,14 +1,16 @@
+import * as constants from './constants'
+
 const initialState = {
-  counter:0,
+  data:null,
 }
 
 
 const reducer = (state = initialState,action) => {
   switch(action.type){
-    case 'ADD_ONE': 
+    case constants.SET_DATA: 
       return {
         ...state,
-        counter:state.counter + 1
+        data:action.data
       }
     default:
     return state
