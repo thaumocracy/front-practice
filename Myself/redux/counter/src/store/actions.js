@@ -12,9 +12,25 @@ export const init = () => {
 }
 
 export const setData = data => {
+
   return {
     type:constants.SET_DATA,
     data:data.rates
   }
 }
 
+export const setBase = value => {
+console.log(value)
+  return {
+    type:constants.SET_BASE,
+    value:value
+  }
+}
+
+export const setExchange = value => {
+  console.log(value)
+  return {
+    type:constants.SET_EXCHANGE,
+    value:value
+  }
+}
