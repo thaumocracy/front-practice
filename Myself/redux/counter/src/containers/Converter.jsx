@@ -1,19 +1,20 @@
 import React, { Component , Fragment} from 'react';
 import {connect} from 'react-redux'
-import keys from '../keys'
 import './Converter.css'
 import * as actions from '../store/actions'
-import Icon from '../assets/exchange-icon.svg'
 
 class Converter extends Component {
-state = {
-  realLink : null
+
+checkInput = () => {
+  console.log(this.props)
+  if(this.props.base && this.props.exchange){
+    this.props.fetchData(this.props.base,this.props.exchange)
+  }
 }
 
 render(){  
  let baseClass = this.props.base || ''
  let exchangeClass = this.props.exchange || ''
-
   return (
     <Fragment>
       <div className="innerWrapper">
@@ -23,9 +24,7 @@ render(){
             className="baseSelect" 
             onChange={(event) => {
               this.props.onBaseChange(event.target.value)
-              if(this.props.base && this.props.exchange){
-                this.props.fetchData(`https://api.exchangeratesapi.io/latest?base=${this.props.base}&symbols=${this.props.exchange}`)
-              }
+              this.checkInput()
             }}
             value={this.props.base || ''}
           >
@@ -52,9 +51,7 @@ render(){
             className="changeSelect" 
             onChange={(event) => {
               this.props.onExchangeChange(event.target.value)
-              if(this.props.base && this.props.exchange){
-                this.props.fetchData(`https://api.exchangeratesapi.io/latest?base=${this.props.base}&symbols=${this.props.exchange}`)
-              }
+              this.checkInput()
             }} 
             value={this.props.exchange || ''}
           >
