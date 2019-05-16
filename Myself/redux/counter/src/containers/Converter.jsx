@@ -3,22 +3,30 @@ import {connect} from 'react-redux'
 import keys from '../keys'
 import './Converter.css'
 import * as actions from '../store/actions'
+import Icon from '../assets/exchange-icon.svg'
 
-class Converter extends Component { 
- componentDidMount() {
-   this.props.onAppStart()
- }
- 
-render(){
+class Converter extends Component {
+state = {
+  realLink : null
+}
+
+render(){  
+ let baseClass = this.props.base || ''
+ let exchangeClass = this.props.exchange || ''
+
   return (
     <Fragment>
       <div className="innerWrapper">
-        <div className="exchange-wrapper">
+        <div className={`exchange-wrapper ${baseClass}`}>
           <select 
             name="baseCurrency" 
-            id="" 
             className="baseSelect" 
-            onChange={(event) => this.props.onBaseChange(event.target.value)} 
+            onChange={(event) => {
+              this.props.onBaseChange(event.target.value)
+              if(this.props.base && this.props.exchange){
+                this.props.fetchData(`https://api.exchangeratesapi.io/latest?base=${this.props.base}&symbols=${this.props.exchange}`)
+              }
+            }}
             value={this.props.base || ''}
           >
             <option value="" disabled>Choose your currency</option>
@@ -36,13 +44,18 @@ render(){
           </select>
         </div>
       </div>
+      <p style={{width:'100%',textAlign:'center',fontSize:'3rem'}}>{( `${this.props.base} || ${this.props.exchange}` || 'NOPE')}</p>
       <div className="innerWrapper">
-        <div className="exchange-wrapper">
+        <div className={`exchange-wrapper ${exchangeClass}`}>
           <select 
             name="changeCurrency" 
-            id="" 
             className="changeSelect" 
-            onChange={(event) => this.props.onExchangeChange(event.target.value)} 
+            onChange={(event) => {
+              this.props.onExchangeChange(event.target.value)
+              if(this.props.base && this.props.exchange){
+                this.props.fetchData(`https://api.exchangeratesapi.io/latest?base=${this.props.base}&symbols=${this.props.exchange}`)
+              }
+            }} 
             value={this.props.exchange || ''}
           >
             <option value="" disabled>Choose your currency</option>
@@ -76,7 +89,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAppStart: () => dispatch(actions.init()),
+    fetchData: (link) => dispatch(actions.fetchData(link)),
     onBaseChange:(value) => dispatch(actions.setBase(value)),
     onExchangeChange:(value) => dispatch(actions.setExchange(value))
   }

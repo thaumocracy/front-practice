@@ -37,3 +37,37 @@ select {
   margin:0 auto;
   color:darkslategray;
 }
+
+.GBP {
+  background-image: url('./assets/gbp.webp');
+}
+.FIN {
+  background-image: url('./assets/fin.webp');
+}
+.EUR {
+  background-image: url('./assets/eur.webp');
+}
+.DEM {
+  background-image: url('./assets/dem.webp');
+}
+.DKK {
+  background-image: url('./assets/dkk.webp');
+}
+.MXN {
+  background-image: url('./assets/mxn.webp');
+}
+.AUD {
+  background-image: url('./assets/aud.webp');
+}
+.CAD {
+  background-image: url('./assets/cad.webp');
+}
+.THB {
+  background-image: url('./assets/thb.webp');
+}
+.RUB {
+  background-image: url('./assets/rub.webp');
+}
+.PLN {
+  background-image: url('./assets/pln.webp');
+}

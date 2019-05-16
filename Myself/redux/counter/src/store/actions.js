@@ -3,7 +3,9 @@ import * as constants from '../store/constants'
 
 const link = `http://data.fixer.io/api/latest?access_key=${keys.fixer}&symbols=GBP,FIN,EUR,DEM,DKK,MXN,AUD,CAD,THB,RUB,PLN&format=1`
 
-export const init = () => {
+
+
+export const fetchData = (link) => {
   return dispatch => {
     fetch(link).then(response => response.json())
     .then(data => dispatch(setData(data)))

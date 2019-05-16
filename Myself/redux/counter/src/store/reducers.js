@@ -2,9 +2,10 @@ import * as constants from './constants'
 
 const initialState = {
   data:null,
-  base:null,
-  exchange:null,
+  base:'',
+  exchange:'',
   amount:null,
+  etalon: 1 
 }
 
 
