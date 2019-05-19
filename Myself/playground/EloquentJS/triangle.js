@@ -9,3 +9,4 @@ const triangle = (num,symbol) => {
 }
 
 triangle(5,'X')
+triangle(20,'*')
