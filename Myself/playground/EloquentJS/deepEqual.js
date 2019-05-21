@@ -8,7 +8,9 @@ function deepEqual(a, b) {
     return false
   }
   for (let key of aKeys) {
-    if (!bKeys.includes(key) || !deepEqual(a[key], b[key])) return false;
+    if (!bKeys.includes(key) || !deepEqual(a[key], b[key])) {
+      return false
+    }
   }
 
   return true;
