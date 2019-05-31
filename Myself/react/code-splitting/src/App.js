@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React  , { Component }from 'react';
 import './App.css';
 import Page1 from './components/Page1';
-import Page2 from './components/Page2';
-import Page3 from './components/Page3';
+import AsyncComponent from './components/asyncComponent';
+// import Page2 from './components/Page2';
+// import Page3 from './components/Page3';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Page1 />
-        <Page2 />
-        <Page3 />
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    route:'page1',
+    component:null
+  }
+
+  onRouteChange = route => {this.setState({route:route})}
+
+  render(){
+    if(this.state.route === 'page1'){return <Page1 onRouteChange={this.onRouteChange} />}
+    else if(this.state.route === 'page2'){
+      const AsyncPage2 = AsyncComponent(() => import('./components/Page2'))
+      return <AsyncPage2 onRouteChange={this.onRouteChange} />
+    }
+    else if(this.state.route === 'page3'){
+      const AsyncPage3 = AsyncComponent(() => import('./components/Page3'))
+      return <AsyncPage3 onRouteChange={this.onRouteChange} />
+    }
+  }
+  
 }
 
 export default App;
