@@ -9,4 +9,6 @@ services:
     working_dir: /usr/src/back
     ports:
       - "3000:3000"
+    # volumes:
+    #   - ./:/usr/src/smart-brain-api
     
