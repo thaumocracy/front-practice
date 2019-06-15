@@ -1,14 +1,28 @@
 version: '3.6'
 
 services:
+  #backend api
   smart-brain-api:
     container_name: backend
-    # image: node:10.13.0
     build: ./
     command: npm start
     working_dir: /usr/src/back
+    environment:
+      POSTGRES_URI : postgres://thaumocracy:password@postgres:5432/smart-brain-docker
+    links:
+      - postgres
     ports:
       - "3000:3000"
-    # volumes:
-    #   - ./:/usr/src/smart-brain-api
-    
+    volumes:
+      - ./:/usr/src/smart-brain-api
+  # Postgres DB
+  postgres:    
+    container_name: postgres
+    environment:
+      POSTGRES_USER: thaumocracy
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    image: postgres
+    ports: 
+      - "5432:5432"
