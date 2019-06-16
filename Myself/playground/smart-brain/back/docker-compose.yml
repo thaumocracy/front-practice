@@ -12,7 +12,7 @@ services:
     links:
       - postgres
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - ./:/usr/src/smart-brain-api
   # Postgres DB
@@ -23,6 +23,6 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: smart-brain-docker
       POSTGRES_HOST: postgres
-    image: postgres
+    build: ./postgres
     ports: 
       - "5432:5432"
