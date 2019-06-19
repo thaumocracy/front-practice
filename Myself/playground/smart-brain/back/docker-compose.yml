@@ -9,8 +9,7 @@ services:
     working_dir: /usr/src/back
     environment:
       POSTGRES_URI : postgres://thaumocracy:password@postgres:5432/smart-brain-docker
-    links:
-      - postgres
+      REDIS_URI : redis://redis
     ports:
       - "3001:3001"
     volumes:
@@ -26,3 +25,10 @@ services:
     build: ./postgres
     ports: 
       - "5432:5432"
+  # Redis
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+    
