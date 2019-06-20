@@ -27,11 +27,16 @@ class Profile extends Component {
   onProfileUpdate = (data) => {
     fetch(`http://192.168.99.100:3001/profile/${this.props.user.id}`,{
       method:'POST',
-      headers: {'Content-Type':'application/json'},
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':window.sessionStorage.getItem('token')
+      },
       body:JSON.stringify({formInput:data})
     }).then(response => {
-      this.props.toggleModal()
-      this.props.loadUser({...this.props.user,...data})
+      if(response.status === 200 || response.status === 304){
+        this.props.toggleModal()
+        this.props.loadUser({...this.props.user,...data})
+      }
     })
   }
 
@@ -42,10 +47,7 @@ class Profile extends Component {
       <div className='profile-modal'>
         <article className='br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center bg-white'>
           <main className='pa4 black-80 w-80'>
-            <img
-              src='http://tachyons.io/img/logo.jpg'
-              className='h3 w3 dib' alt='avatar'
-            />
+            <img src='http://tachyons.io/img/logo.jpg' className='h3 w3 dib' alt='avatar'/>
             <h1>{this.state.name}</h1>
             <h4>{`Images submitted: ${user.entries}`}</h4>
             <p>{`Member since: ${new Date(user.joined).toLocaleDateString()}`}</p>
@@ -65,8 +67,7 @@ class Profile extends Component {
                 onClick={toggleModal}>
                 Cancel
               </button>
-            </div>
-  
+            </div>  
           </main>
           <div className='modal-close' onClick={toggleModal}>
             &times;
