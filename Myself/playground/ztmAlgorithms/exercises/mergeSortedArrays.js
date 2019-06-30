@@ -5,11 +5,7 @@ const mergeSortedArrays = (arr1,arr2) => {
     hash[i] = arr2[i]
   }
   for(let i = 0; i < arr1.length;i++){
-    if(arr1[i] < hash[i]){
-      newArray.push(arr1[i])
-    } else {
-      newArray.push(hash[i])
-    }
+    
   }
   return newArray
 }
