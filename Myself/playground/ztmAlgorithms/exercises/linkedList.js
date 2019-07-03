@@ -1,4 +1,4 @@
-// let myLinkedList = {
+// let myDoublyLinkedList = {
 //   head: {
 //     value: 10,
 //     next: {
@@ -14,14 +14,16 @@ class Node {
   constructor(value){
     this.value = value
     this.next = null
+    this.prev = null
   }
 }
 
-class LinkedList {
+class DoublyLinkedList {
   constructor(value){
     this.head = {
       value:value,
-      next: null
+      next: null,
+      prev:null
     }
     this.tail = this.head
     this.length = 1
@@ -29,6 +31,7 @@ class LinkedList {
   
   append(value){
     let appendNode = new Node(value)
+    appendNode.prev = this.tail
     this.tail.next = appendNode
     this.tail = appendNode
     this.length++
@@ -38,6 +41,7 @@ class LinkedList {
   prepend(value){
     let prependNode = new Node(value)
     prependNode.next = this.head
+    this.head.prev = prependNode
     this.head = prependNode
     this.length++
     return this
@@ -58,9 +62,11 @@ class LinkedList {
     if(index >= this.length){return this.append(value)}
     let newNode = new Node(value)
     const leader = this.traverseToIndex(index - 1)
-    const previousPointer = leader.next
+    const follower = leader.next
     leader.next = newNode
-    newNode.next = previousPointer
+    newNode.prev = leader
+    newNode.next = follower
+    follower.prev = newNode
     this.length++
     return this.printList()
   }
@@ -80,13 +86,32 @@ class LinkedList {
     const leader = this.traverseToIndex(index - 1)
     const follower = this.traverseToIndex(index + 1)
     leader.next = follower
+    this.length--
     this.printList()
+  }
+  
+  reverse(){
+    // only for single linked list
+    if(!this.head.next){ return this.head}
+    let first = this.head
+    this.tail = this.head
+    let second = first.next
+    while(second){
+      let next = second.next
+      second.next = first
+      first = second
+      second = next
+    }
+    this.head.next = null
+    this.head = first
+    return this.printList()
   }
 }
 
-const myLinkedList = new LinkedList(10)
+const myDoublyLinkedList = new DoublyLinkedList(10)
 
-myLinkedList.append(5)
-myLinkedList.prepend(3)
-myLinkedList.insert(1,4)
-myLinkedList.delete(899)
+myDoublyLinkedList.append(1)
+myDoublyLinkedList.append(2)
+myDoublyLinkedList.prepend(3)
+myDoublyLinkedList.insert(2,4)
+myDoublyLinkedList.reverse()
