@@ -148,13 +148,43 @@ class BinarySearchTree {
 
   breadthFirstRecursive(queue,list){
     if(!queue.length){return list}
-
     let currentNode = queue.shift()
     list.push(currentNode.value)
     if(currentNode.left) { queue.push(currentNode.left)}
     if(currentNode.right){ queue.push(currentNode.right)}
     return this.breadthFirstRecursive(queue,list)
   }
+
+  depthFirstSearchInOrder(){
+    return traverseInOrder(this.root,[])
+  }
+  depthFirstSearchPostOrder(){
+    return traversePostOrder(this.root,[])
+  }
+  depthFirstSearchPreOrder(){
+    return traversePreOrder(this.root,[])
+  }
+}
+
+function traverseInOrder(node,list){
+  if(node.left){ traverseInOrder(node.left,list)}
+  list.push(node.value)
+  if(node.right){traverseInOrder(node.right,list)}
+  return list
+}
+
+function traversePreOrder(node,list){
+  list.push(node.value)
+  if(node.left){ traverseInOrder(node.left,list)}
+  if(node.right){traverseInOrder(node.right,list)}
+  return list
+}
+
+function traversePostOrder(node,list){
+  if(node.left){ traverseInOrder(node.left,list)}
+  if(node.right){traverseInOrder(node.right,list)}
+  list.push(node.value)
+  return list
 }
 
 const tree = new BinarySearchTree();
@@ -166,8 +196,11 @@ console.log(tree.insert(170))
 console.log(tree.insert(15))
 console.log(tree.insert(1))
 // console.log(tree.remove(170))
-console.log(tree.breadthFirstSearch())
-console.log(tree.breadthFirstRecursive([tree.root],[]))
+// console.log(tree.breadthFirstSearch())
+// console.log(tree.breadthFirstRecursive([tree.root],[]))
+console.log(tree.depthFirstSearchInOrder())
+console.log(tree.depthFirstSearchPreOrder())
+console.log(tree.depthFirstSearchPostOrder())
 
 // console.log(JSON.stringify(traverse(tree.root)))
 
