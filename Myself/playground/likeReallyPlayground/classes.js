@@ -1,3 +1,5 @@
+'use strict';
+
 class Creature {
   constructor(type = "hamster",legs = 4,head = 1){
     this.type = type
@@ -15,13 +17,14 @@ class Human extends Creature {
   }
   
   get work (){
-    return `This dude is not a rapper`
+    return this.job
   }
 }
 
 
 const creature = new Creature('dog',4,1)
 const hamster = new Creature()
+const builder = new Human('english','white','builder')
 
 console.log(`${creature.type} has a ${creature.legs} legs`)
 console.log(`${hamster.type} has a ${hamster.legs} legs`)
